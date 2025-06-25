@@ -6,54 +6,72 @@ container.style.flexWrap = "wrap";
 container.style.border = "2px solid black";
 container.style.margin = "30px";
 
+
+
+
+//Grid 
 const grid = document.querySelector("#grid");
 
 grid.style.cssText = 
-"display: flex; flex-wrap: wrap; border: 2px solid black; width: 500px; height: 500px";
+"display: flex; flex-wrap: wrap; border: 2px solid black; width: 500px; height: 500px; align-self: center; justify-self: center";
 
+createGrid(16);
 
-// const squareDiv = document.createElement("div");
-
-// squareDiv.style.display = "flex";
-// squareDiv.id = "hover";
-// squareDiv.style.height = 16px;
-// squareDiv.style.border = "thick solid black";
-
-//5.3% for 16 x 16 in flexbox
-const gridDimensions = 16 * 16;
-
-for(let i = 0; i < gridDimensions; i++){
-    const gridBox = document.createElement("div");
-    gridBox.classList.add("hover");
-    gridBox.style.cssText= "flex: 1 1 5.3%; border: 2px solid red; background-color: blue; id: hover";
-    grid.appendChild(gridBox);
-
-}
-
-
-// for(let i = 0; i < 16;i++){
-//     for(let j = 0; j < 16;j++){
-
-//     }
-//     const div = document.createElement("div");
-
-// }
-
-// container.appendChild(squareDiv);
-
-//Mouse EventListener
-
-let etch = document.querySelectorAll(".hover");
-
-//for loop to add events for all gridboxes
-for(let i = 0;i < etch.length;i++){
-    etch[i].addEventListener("mouseover", (e) => {
-        etch[i].style.backgroundColor = "black";
-    })
-}
-
+//Initial Experiment on 'etching'
 // const etch = document.querySelector(".hover");
 
 // etch.addEventListener("mouseover", (e) => {
 //     etch.style.backgroundColor = "black";
 // })
+
+//Buttons
+
+//Change Grid
+
+let btn = document.querySelector(".btn");
+
+btn.addEventListener("click",(e) => {
+    let size = prompt("Number of squares per side?","16");
+
+    if(size > 100){
+        alert("Maximum size is 100 per side!");
+        size = 100;
+    }
+
+    let delChild = document.querySelectorAll(".hover");
+
+    for(let i = 0; i < delChild.length;i++){
+        delChild[i].remove();
+    }
+
+    createGrid(size);
+
+})
+
+function createGrid(size){
+
+    let percentage = (((500/size)-4) * (1/500)) * 100;
+    let totalbox = size * size;
+
+    for(let i = 0; i < totalbox; i++){
+        const newGridBox = document.createElement("div");
+        //realise i needed this function to add classes to elements
+        newGridBox.classList.add("hover");
+        newGridBox.style.cssText= "border: 2px dotted grey;";
+        newGridBox.style.flex = 1;
+        newGridBox.style.flexBasis = percentage+"%"; 
+        grid.appendChild(newGridBox);
+    
+    }
+
+    //adding the event listeners again will have to simplify in the future
+    let etch = document.querySelectorAll(".hover");
+
+    //for loop to add events for all gridboxes
+    for(let i = 0;i < etch.length;i++){
+        etch[i].addEventListener("mouseover", (e) => {
+            etch[i].style.backgroundColor = "black";
+        })
+    }
+}
+
