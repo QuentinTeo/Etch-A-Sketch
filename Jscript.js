@@ -6,9 +6,6 @@ container.style.flexWrap = "wrap";
 container.style.border = "2px solid black";
 container.style.margin = "30px";
 
-
-
-
 //Grid 
 const grid = document.querySelector("#grid");
 
@@ -27,7 +24,6 @@ createGrid(16);
 //Buttons
 
 //Change Grid
-
 let btn = document.querySelector(".btn");
 
 btn.addEventListener("click",(e) => {
@@ -48,6 +44,8 @@ btn.addEventListener("click",(e) => {
 
 })
 
+
+
 function createGrid(size){
 
     let percentage = (((500/size)-4) * (1/500)) * 100;
@@ -64,13 +62,25 @@ function createGrid(size){
     
     }
 
-    //adding the event listeners again will have to simplify in the future
+    //adding the event listeners
     let etch = document.querySelectorAll(".hover");
+
+    let opac = 0;
+
+    // background-color: "rgb(" + R + ", " + G + ", " + B +")";
 
     //for loop to add events for all gridboxes
     for(let i = 0;i < etch.length;i++){
         etch[i].addEventListener("mouseover", (e) => {
-            etch[i].style.backgroundColor = "black";
+
+            // changes to random color per interation
+            let R =Math.floor(Math.random() * 255) + 1
+            let G =Math.floor(Math.random() * 255) + 1
+            let B =Math.floor(Math.random() * 255) + 1
+            etch[i].style.backgroundColor = "rgb(" + R + ", " + G + ", " + B +")";
+            
+            opac += 0.1; 
+            etch[i].style.opacity = opac;
         })
     }
 }
