@@ -65,9 +65,11 @@ function createGrid(size){
     //adding the event listeners
     let etch = document.querySelectorAll(".hover");
 
-    let opac = 0;
+    //map opacity with the array of etch grid boxes
+    //makes interacting with same grid box become darker in opacity
+    var opac = new Array(etch.length);
+    opac.fill(0);
 
-    // background-color: "rgb(" + R + ", " + G + ", " + B +")";
 
     //for loop to add events for all gridboxes
     for(let i = 0;i < etch.length;i++){
@@ -79,8 +81,9 @@ function createGrid(size){
             let B =Math.floor(Math.random() * 255) + 1
             etch[i].style.backgroundColor = "rgb(" + R + ", " + G + ", " + B +")";
             
-            opac += 0.1; 
-            etch[i].style.opacity = opac;
+            //opacity starts at 10% and continues to get darker on the same spot
+            opac[i] += 0.1; 
+            etch[i].style.opacity = opac[i] ;
         })
     }
 }
